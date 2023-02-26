@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вcе люди</title>
+</head>
+<body>
+
+<div th:each="director : ${directors}">
+    <a th:href="@{/directors/{id}(id=${director.getId()})}"
+       th:text="${director.getName()+', '+ director.getAge()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/directors/new">Add new director</a>
+</body>
+</html>
