@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
+
 @Entity
 @Table(name = "actors")
 public class Actor {
@@ -18,6 +20,13 @@ public class Actor {
     @Column(name = "age")
     @Min(value = 0, message = "Age should not be empty")
     Integer age;
+    @ManyToMany
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<Movie> movies;
 
     public Actor() {
     }

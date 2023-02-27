@@ -1,17 +1,20 @@
 package ru.kulakov.spring.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
 public class Movie {
     @ManyToOne
-    @JoinColumn(name="director_id",referencedColumnName = "director_id")
+    @JoinColumn(name = "director_id", referencedColumnName = "director_id")
     private Director director;
     @Id
     @Column(name = "movie_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int movieId;
+    @ManyToMany(mappedBy = "movies")
+    private List<Actor> actors;
     String name;
 
     public Movie(Director director, int movieId, String name) {
