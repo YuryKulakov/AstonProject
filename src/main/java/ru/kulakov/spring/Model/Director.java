@@ -1,18 +1,23 @@
 package ru.kulakov.spring.Model;
 
-import org.springframework.stereotype.Component;
-
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-
+@Entity
+@Table(name = "directors")
 public class Director {
+    @Id
+    @Column(name = "director_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotEmpty(message = "Name should no be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 30 characters")
+    @Column(name = "name")
     String name;
     @Min(value = 0, message = "Age should not be empty")
+    @Column(name = "age")
     int age;
 
     public Director() {

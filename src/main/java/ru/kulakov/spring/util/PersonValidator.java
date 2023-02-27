@@ -7,28 +7,28 @@ import org.springframework.validation.Validator;
 import ru.kulakov.spring.Dao.PersonDAO;
 import ru.kulakov.spring.Model.Person;
 
-@Component
-public class PersonValidator implements Validator {
+//@Component
+//public class PersonValidator implements Validator {
+//
+//
+//    private final PersonDAO personDAO;
+//
+//    @Autowired
+//    public PersonValidator(PersonDAO personDAO) {
+//        this.personDAO = personDAO;
+//    }
+//
+//    @Override
+//    public boolean supports(Class<?> clazz) {
+//        return Person.class.equals(clazz);
+//    }
+//
+//    @Override
+//    public void validate(Object target, Errors errors) {
+//        Person person = (Person) target;
 
-
-    private final PersonDAO personDAO;
-
-    @Autowired
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return Person.class.equals(clazz);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        Person person = (Person) target;
-
-        if (personDAO.show(person.getEmail()).isPresent()) {
-            errors.rejectValue("email", "", "This email is already taken");
-        }
-    }
-}
+//        if (personDAO.show(person.getEmail()).isPresent()) {
+//            errors.rejectValue("email", "", "This email is already taken");
+//        }
+//    }
+//}

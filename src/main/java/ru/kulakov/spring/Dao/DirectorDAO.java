@@ -1,41 +1,49 @@
 package ru.kulakov.spring.Dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kulakov.spring.Model.Director;
+
 import java.util.List;
 
 @Component
 public class DirectorDAO {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public DirectorDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public DirectorDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
+    @Transactional
     public List<Director> index() {
-        return jdbcTemplate.query("SELECT * FROM Directors", new BeanPropertyRowMapper<>(Director.class));
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select d from Director d", Director.class).getResultList();
     }
-
+    @Transactional
     public Director show(int id) {
-        return jdbcTemplate.query("SELECT * FROM Directors WHERE director_id=?",new Object[]{id}, new BeanPropertyRowMapper<>(Director.class))
-                .stream().findAny().orElse(null);
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Director.class, id);
     }
-
+    @Transactional
     public void save(Director director) {
-        jdbcTemplate.update("INSERT INTO Directors(name,age) VALUES (?,?)",director.getName(),director.getAge());
+        Session session = sessionFactory.getCurrentSession();
+        session.save(director);
     }
+    @Transactional
+    public void update(int id, Director updateDirector) {
+        Session session = sessionFactory.getCurrentSession();
+        session.get(Director.class, id).setName(updateDirector.getName());
+        session.get(Director.class, id).setAge(updateDirector.getAge());
 
-    public void update(int director_id, Director updateDirector) {
-        jdbcTemplate.update("UPDATE Directors SET name=?,age=? WHERE director_id=?",updateDirector.getName(),updateDirector.getAge(),director_id);
     }
-
-    public void delete(int director_id) {
-        jdbcTemplate.update("DELETE FROM Directors WHERE director_id=?",director_id);
-
+    @Transactional
+    public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Director.class, id));
     }
 }

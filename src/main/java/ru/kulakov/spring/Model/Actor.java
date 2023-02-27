@@ -1,14 +1,21 @@
 package ru.kulakov.spring.Model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
+@Entity
+@Table(name = "actors")
 public class Actor {
+    @Id
+    @Column(name = "actor_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @NotEmpty(message = "Name should no be empty")
+    @Column(name = "name")
     @Size(min = 2, max = 30, message = "Name should be between 2 30 characters")
     String name;
+    @Column(name = "age")
     @Min(value = 0, message = "Age should not be empty")
     Integer age;
 

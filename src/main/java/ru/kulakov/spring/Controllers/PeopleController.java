@@ -1,13 +1,13 @@
 package ru.kulakov.spring.Controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kulakov.spring.Dao.PersonDAO;
 import ru.kulakov.spring.Model.Person;
-import ru.kulakov.spring.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -15,11 +15,10 @@ import javax.validation.Valid;
 @RequestMapping(value = "/people")
 public class PeopleController {
 
-    private final PersonValidator personValidator;
     private PersonDAO personDAO;
 
-    public PeopleController(PersonValidator personValidator, PersonDAO personDAO) {
-        this.personValidator = personValidator;
+    @Autowired
+    public PeopleController( PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
@@ -43,7 +42,6 @@ public class PeopleController {
 
     @PostMapping
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -60,7 +58,6 @@ public class PeopleController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }

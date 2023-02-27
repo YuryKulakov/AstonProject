@@ -7,8 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kulakov.spring.Dao.DirectorDAO;
 import ru.kulakov.spring.Model.Director;
-import ru.kulakov.spring.Model.Person;
-
 import javax.validation.Valid;
 
 @Controller
@@ -17,6 +15,7 @@ public class DirectorController {
 
     private DirectorDAO directorDAO;
 
+    @Autowired
     public DirectorController(DirectorDAO directorDAO) {
         this.directorDAO = directorDAO;
     }

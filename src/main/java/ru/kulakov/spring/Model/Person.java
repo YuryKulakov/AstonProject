@@ -1,30 +1,38 @@
 package ru.kulakov.spring.Model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-
+@Entity
+@Table(name = "person")
 public class Person {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @NotEmpty(message = "Name should no be empty")
+    @Column(name = "name")
     @Size(min = 2, max = 30, message = "Name should be between 2 30 characters")
     String name;
+    @Column(name = "age")
     @Min(value = 0, message = "Age should not be empty")
     Integer age;
-    @NotEmpty(message = "Email should no be empty")
-    @Email(message = "Email should be valid")
+    @Email
+    @Column(name = "email")
+    @NotEmpty(message = "Email should not be empty")
     String email;
 
     public Person() {
     }
 
-    public Person(Integer id, String name, Integer age, String email) {
-        this.id = id;
+    public Person(String name, Integer age,String email) {
         this.name = name;
         this.age = age;
         this.email = email;
+
     }
 
     public Integer getId() {
