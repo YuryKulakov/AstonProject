@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "directors")
@@ -19,6 +20,8 @@ public class Director {
     @Min(value = 0, message = "Age should not be empty")
     @Column(name = "age")
     int age;
+    @OneToMany(mappedBy = "director")
+    private List<Movie> movies;
 
     public Director() {
     }
@@ -51,5 +54,13 @@ public class Director {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 }
