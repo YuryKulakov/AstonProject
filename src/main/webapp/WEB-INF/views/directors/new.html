@@ -15,6 +15,10 @@
     <input type="text" th:field="*{age}" id="age"/>
     <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
     <br/>
+    <label for="passport">Enter Passport: </label>
+    <input type="text" th:field="*{passport.passportNumber}" id="passport"/>
+    <div style="color:red" th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}">Age error</div>
+    <br/>
     <input type="submit" value="Create!"/>
 </form>
 </body>

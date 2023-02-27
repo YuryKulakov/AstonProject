@@ -1,5 +1,7 @@
 package ru.kulakov.spring.Model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -22,14 +24,18 @@ public class Director {
     int age;
     @OneToMany(mappedBy = "director")
     private List<Movie> movies;
+    @OneToOne(mappedBy = "director")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
+    private Passport passport;
 
     public Director() {
     }
 
-    public Director(int id, String name, int age) {
+    public Director(int id, String name, int age, List<Movie> movies) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.movies = movies;
     }
 
     public int getId() {
@@ -62,5 +68,15 @@ public class Director {
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
+    }
+
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+        passport.setDirector(this);
     }
 }

@@ -14,7 +14,8 @@ public class Movie {
     int movieId;
     String name;
 
-    public Movie(int movieId, String name) {
+    public Movie(Director director, int movieId, String name) {
+        this.director = director;
         this.movieId = movieId;
         this.name = name;
     }
