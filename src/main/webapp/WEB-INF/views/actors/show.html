@@ -10,6 +10,10 @@
 <br/>
 <a th:text="${actor.getId()}">VALUE</a>
 <br/>
+<div th:each="movie : ${actor.getMovies()}">
+    <a th:text="${movie.getName()}">user</a>
+</div>
+<br/>
 
 <a th:href="@{/actors/{id}/edit(id=${actor.getId()})}">Edit</a>
 
