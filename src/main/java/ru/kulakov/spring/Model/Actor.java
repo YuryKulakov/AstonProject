@@ -20,7 +20,7 @@ public class Actor {
     @Column(name = "age")
     @Min(value = 0, message = "Age should not be empty")
     Integer age;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "actor_movie",
             joinColumns = @JoinColumn(name = "actor_id"),
@@ -59,5 +59,13 @@ public class Actor {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 }
