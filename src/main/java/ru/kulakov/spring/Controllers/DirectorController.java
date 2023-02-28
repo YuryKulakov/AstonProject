@@ -12,7 +12,6 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(value = "/directors")
 public class DirectorController {
-
     private DirectorDAO directorDAO;
 
     @Autowired

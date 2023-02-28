@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kulakov.spring.Dao.PersonDAO;
 import ru.kulakov.spring.Model.Person;
-
 import javax.validation.Valid;
 
 @Controller

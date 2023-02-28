@@ -10,5 +10,4 @@ public class SecondController {
     public String exit(){
         return "second/exit";
     }
-
 }

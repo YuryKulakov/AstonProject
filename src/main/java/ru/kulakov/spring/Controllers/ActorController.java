@@ -14,7 +14,6 @@ import javax.validation.Valid;
 @RequestMapping(value = "/actors")
 public class ActorController {
     private ActorDAO actorDAO;
-
     @Autowired
     public ActorController(ActorDAO actorDAO) {
         this.actorDAO = actorDAO;

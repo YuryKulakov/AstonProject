@@ -34,4 +34,5 @@ public class Passport {
     public void setPassportNumber(int passportNumber) {
         this.passportNumber = passportNumber;
     }
+
 }

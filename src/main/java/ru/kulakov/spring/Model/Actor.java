@@ -36,7 +36,6 @@ public class Actor {
         this.name = name;
         this.age = age;
     }
-
     public Integer getId() {
         return id;
     }

@@ -1,7 +1,6 @@
 package ru.kulakov.spring.Model;
 
 import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
