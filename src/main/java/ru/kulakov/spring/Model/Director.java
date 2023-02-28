@@ -22,7 +22,7 @@ public class Director {
     @Min(value = 0, message = "Age should not be empty")
     @Column(name = "age")
     int age;
-    @OneToMany(mappedBy = "director")
+    @OneToMany(mappedBy = "director",fetch = FetchType.EAGER)
     private List<Movie> movies;
     @OneToOne(mappedBy = "director")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
@@ -79,4 +79,6 @@ public class Director {
         this.passport = passport;
         passport.setDirector(this);
     }
+
+
 }
