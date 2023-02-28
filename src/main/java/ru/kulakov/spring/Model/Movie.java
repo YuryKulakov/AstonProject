@@ -1,5 +1,4 @@
 package ru.kulakov.spring.Model;
-
 import javax.persistence.*;
 import java.util.List;
 
