@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kulakov.spring.Dao.ActorDAO;
 import ru.kulakov.spring.Model.Actor;
-
 import javax.validation.Valid;
 
 @Controller

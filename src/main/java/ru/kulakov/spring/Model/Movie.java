@@ -2,6 +2,7 @@ package ru.kulakov.spring.Model;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Table(name = "movies")
 public class Movie {

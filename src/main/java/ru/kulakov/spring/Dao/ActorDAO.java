@@ -1,5 +1,6 @@
 package ru.kulakov.spring.Dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kulakov.spring.Model.Actor;
 import java.util.List;
+
 
 @Component
 public class ActorDAO {
@@ -27,7 +29,9 @@ public class ActorDAO {
     @Transactional
     public Actor show(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Actor.class, id);
+        Actor actor = session.get(Actor.class, id);
+        Hibernate.initialize(actor.getMovies());
+        return actor;
     }
 
     @Transactional

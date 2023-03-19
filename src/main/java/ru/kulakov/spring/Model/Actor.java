@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+
 @Entity
 @Table(name = "actors")
 public class Actor {
@@ -20,7 +21,7 @@ public class Actor {
     @Column(name = "age")
     @Min(value = 0, message = "Age should not be empty")
     Integer age;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "actor_movie",
             joinColumns = @JoinColumn(name = "actor_id"),

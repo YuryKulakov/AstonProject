@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -25,7 +26,9 @@ import java.util.Properties;
 @ComponentScan("ru.kulakov.spring")
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories("ru.kulakov.spring.repositories")
 @EnableWebMvc
+
 public class SpringConfig implements WebMvcConfigurer {
 
     private final Environment environment;

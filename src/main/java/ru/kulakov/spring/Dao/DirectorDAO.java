@@ -1,12 +1,15 @@
 package ru.kulakov.spring.Dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kulakov.spring.Model.Director;
+
 import java.util.List;
+
 
 @Component
 public class DirectorDAO {
@@ -26,7 +29,9 @@ public class DirectorDAO {
     @Transactional
     public Director show(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Director.class, id);
+        Director director = session.get(Director.class,id);
+        Hibernate.initialize(director.getMovies());
+        return director;
     }
     @Transactional
     public void save(Director director) {

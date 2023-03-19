@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+
 @Entity
 @Table(name = "directors")
 public class Director {
@@ -21,7 +22,7 @@ public class Director {
     @Min(value = 0, message = "Age should not be empty")
     @Column(name = "age")
     int age;
-    @OneToMany(mappedBy = "director",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "director")
     private List<Movie> movies;
     @OneToOne(mappedBy = "director")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
