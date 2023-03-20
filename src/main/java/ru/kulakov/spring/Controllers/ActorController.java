@@ -5,28 +5,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kulakov.spring.Dao.ActorDAO;
 import ru.kulakov.spring.Model.Actor;
+import ru.kulakov.spring.services.ActorService;
+
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/actors")
 public class ActorController {
-    private ActorDAO actorDAO;
+    private final ActorService actorService;
     @Autowired
-    public ActorController(ActorDAO actorDAO) {
-        this.actorDAO = actorDAO;
+    public ActorController(ActorService actorService) {
+        this.actorService = actorService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("actors", actorDAO.index());
+        model.addAttribute("actors", actorService.findAll());
         return "actors/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable(value = "id") int id, Model model) {
-        model.addAttribute("actor", actorDAO.show(id));
+        model.addAttribute("actor", actorService.findById(id));
         return "actors/show";
     }
 
@@ -41,13 +42,13 @@ public class ActorController {
         if (bindingResult.hasErrors()) {
             return "actors/new";
         }
-        actorDAO.save(actor);
+        actorService.save(actor);
         return "redirect:/actors";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("actor", actorDAO.show(id));
+        model.addAttribute("actor", actorService.findById(id));
         return "actors/edit";
     }
 
@@ -57,13 +58,13 @@ public class ActorController {
         if (bindingResult.hasErrors()) {
             return "actors/edit";
         }
-        actorDAO.update(id, actor);
+        actorService.update(id, actor);
         return "redirect:/actors";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        actorDAO.delete(id);
+        actorService.delete(id);
         return "redirect:/actors";
 
     }

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,6 +29,9 @@ public class Actor {
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     private List<Movie> movies;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
     public Actor() {
     }
@@ -37,6 +41,7 @@ public class Actor {
         this.name = name;
         this.age = age;
     }
+
     public Integer getId() {
         return id;
     }
@@ -67,5 +72,13 @@ public class Actor {
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,6 +28,9 @@ public class Director {
     @OneToOne(mappedBy = "director")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Passport passport;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
     public Director() {
     }
@@ -80,5 +84,11 @@ public class Director {
         passport.setDirector(this);
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

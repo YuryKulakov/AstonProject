@@ -5,30 +5,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kulakov.spring.Dao.DirectorDAO;
 import ru.kulakov.spring.Model.Director;
+import ru.kulakov.spring.services.DirectorService;
+
 import javax.validation.Valid;
 
 
 @Controller
 @RequestMapping(value = "/directors")
 public class DirectorController {
-    private DirectorDAO directorDAO;
+    private final DirectorService directorService;
 
     @Autowired
-    public DirectorController(DirectorDAO directorDAO) {
-        this.directorDAO = directorDAO;
+    public DirectorController(DirectorService directorService) {
+        this.directorService = directorService;
     }
+
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("directors", directorDAO.index());
+        model.addAttribute("directors", directorService.findAll());
         return "directors/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable(value = "id") int id, Model model) {
-        model.addAttribute("director", directorDAO.show(id));
+        model.addAttribute("director", directorService.findById(id));
         return "directors/show";
     }
 
@@ -43,13 +45,13 @@ public class DirectorController {
         if (bindingResult.hasErrors()) {
             return "directors/new";
         }
-        directorDAO.save(director);
+        directorService.save(director);
         return "redirect:/directors";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("director", directorDAO.show(id));
+        model.addAttribute("director", directorService.findById(id));
         return "directors/edit";
     }
 
@@ -59,13 +61,13 @@ public class DirectorController {
         if (bindingResult.hasErrors()) {
             return "directors/edit";
         }
-        directorDAO.update(id, director);
+        directorService.update(id, director);
         return "redirect:/directors";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        directorDAO.delete(id);
+        directorService.delete(id);
         return "redirect:/directors";
 
     }

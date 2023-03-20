@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kulakov.spring.Model.Person;
 import ru.kulakov.spring.repositories.PeopleRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,18 +22,17 @@ public class PeopleService {
     }
 
     public List<Person> findAll(){
-
         return peopleRepository.findAll();
     }
 
     public Person findById(Integer id){
         Optional<Person> optionalPerson = peopleRepository.findById(id);
-
         return optionalPerson.orElse(null);
     }
 
     @Transactional
     public void save(Person person){
+        person.setCreatedAt(new Date());
         peopleRepository.save(person);
     }
 
